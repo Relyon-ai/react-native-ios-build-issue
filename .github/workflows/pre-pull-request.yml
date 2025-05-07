@@ -1,0 +1,30 @@
+name: Pre Pull Request Checks
+
+on:
+    pull_request:
+        branches: [development, develop, dev]
+        types: [opened, synchronize, reopened]
+
+jobs:
+    code-quality:
+        name: Code Quality
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  ref: ${{ github.head_ref }}
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '18'
+                  cache: 'npm'
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Lint changed files
+              run: |
+                  npx lint-staged --diff="origin/development...HEAD" "**/*.{js,jsx,ts,tsx}"

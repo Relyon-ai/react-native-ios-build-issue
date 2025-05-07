@@ -1,0 +1,17 @@
+export { default as EmergencyContact } from './EmergencyContantNew.svg';
+export { default as PersonalUserLogo } from './PersonalUserLogo.svg';
+export { default as EditLogoMenu } from './PencilPersonal.svg';
+export { default as RelyonSymbol } from './RelyonSymbolPersonal.svg';
+export { default as ArrowBackEnglish } from './ArrowbackLeft.svg';
+export { default as ArrowBackHeb } from './ArrowBackRight.svg';
+export { default as ArrowBack } from './Arrowback.svg';
+export { default as Camera } from './NewCamera.svg';
+export { default as AddLogoSymbol } from './AddLogoIcon.svg';
+export { default as MenuIcon } from './menu-icon.svg';
+export { default as LocationIcon } from './location-icon.svg';
+export { default as CloseIcon } from './close-circle-outline.svg';
+export { default as AddUserSvg } from './addUser.svg';
+export { default as CopyIcon } from './copy-icon.svg';
+export { default as MakeAdminIcon } from './make-admin-icon.svg';
+export { default as RemoveIcon } from './Remove.svg';
+export { default as RingsIcon } from './RingsIcon.svg';

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>org.reactjs.native.example.testApplicationReproduce</string>
+	</array>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>Relyon</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>5.0.0</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.865527912759-re29jmp7s9vj0tvtcsg6k0ukaghlopkr</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>www.relyon.ai</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>https</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>5.0.0</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Relyon needs access to your calendar to help schedule reminders, ensuring timely assistance during critical moments</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Relyon use the camera to let you take and upload a profile photo. This helps personalize your account and makes it easier for others to recognize you on the platform.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Relyon will upload ONLY your chosen emergency contact to its encrypted cloud server to have the ability to call them and send them SMS when you activate the app. For more information visit our privacy policy:https://relyon.ai/privacy/ </string>
+	<key>NSLocalizedDescription</key>
+	<string>testApplicationReproduce</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>When this app is activated from the background, it will be able to send your chosen contact an SMS with your location.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>When this app is activated from the background, it will be able to send your chosen contact an SMS with your location.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location permission is used only when you activate the app to send your chosen contact an SMS with your location.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs to use your microphone to activate the app in case of emergrncy and to perform phone calls</string>
+	<key>NSMotionUsageDescription</key>
+	<string>This app needs to use your motion sensors to activate the app in case of emergrncy</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To use a photo from your libarary for the profile avatar</string>
+	<key>NSPrivacyAccessedAPICategoryDiskSpace</key>
+	<string>This app uses disk space information to efficiently manage caching and storage requirements, ensuring optimal performance and user experience</string>
+	<key>NSPrivacyAccessedAPICategoryFileTimestamp</key>
+	<string>Access to file timestamps is required for maintaining version control and ensuring data integrity within the app.</string>
+	<key>NSPrivacyAccessedAPICategorySystemBootTime</key>
+	<string>This app accesses system boot time to optimize performance and functionality, ensuring timely updates and maintenance tasks are performed based on system uptime.</string>
+	<key>NSPrivacyAccessedAPICategoryUserDefaults</key>
+	<string>This app accesses user defaults to store and retrieve user settings and preferences, ensuring a personalized and consistent user experience across sessions.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Montserrat-Italic-VariableFont_wght.ttf</string>
+		<string>Montserrat-VariableFont_wght.ttf</string>
+		<string>Montserrat-Regular.ttf</string>
+		<string>Montserrat-Bold.ttf</string>
+		<string>Rubik-Bold.ttf</string>
+		<string>Rubik-Regular.ttf</string>
+		<string>Rubik-Black.ttf</string>
+		<string>Rubik-ExtraBold.ttf</string>
+		<string>Rubik-Italic.ttf</string>
+		<string>Rubik-Light.ttf</string>
+		<string>Rubik-Medium.ttf</string>
+		<string>Rubik-SemiBold.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>fetch</string>
+		<string>location</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+		<string>voip</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>SplashScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+</dict>
+</plist>

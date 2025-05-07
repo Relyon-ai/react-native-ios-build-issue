@@ -1,0 +1,164 @@
+require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
+
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
+
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
+
+$FirebaseSDKVersion = '11.8.0'
+
+target 'testApplicationReproduce' do
+  use_expo_modules!
+
+  if ENV['EXPO_USE_COMMUNITY_AUTOLINKING'] == '1'
+    config_command = ['node', '-e', "process.argv=['', '', 'config'];require('@react-native-community/cli').run()"];
+  else
+    config_command = [
+      'node',
+      '--no-warnings',
+      '--eval',
+      'require(require.resolve(\'expo-modules-autolinking\', { paths: [require.resolve(\'expo/package.json\')] }))(process.argv.slice(1))',
+      'react-native-config',
+      '--json',
+      '--platform',
+      'ios'
+    ]
+  end
+
+  post_integrate do |installer|
+    begin
+      expo_patch_react_imports!(installer)
+    rescue => e
+      Pod::UI.warn e
+    end
+  end
+
+  config = use_native_modules!(config_command)
+
+  pod 'react-native-background-actions', :path => '../node_modules/react-native-background-actions'
+
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-maps', :path => rn_maps_path
+  # pod 'react-native-google-maps', :path => rn_maps_path
+  # pod 'react-native-maps-generated', :path => rn_maps_path
+
+  pod 'ios-voice-processor', '~> 1.1.0'
+
+  # pod 'ZoomVideoSDK/ZoomVideoSDK', '1.13.11'
+  # pod 'ZoomVideoSDK/zoomcml', '1.13.11'
+  # pod 'ZoomVideoSDK/CptShare', '1.13.11'
+  # pod 'ZoomVideoSDK/zm_annoter_dynamic', '1.13.11'
+
+  def node_require(script)
+    # Resolve script with node to allow for hoisting
+    require Pod::Executable.execute_command('node', ['-p',
+      "require.resolve(
+        '#{script}',
+        {paths: [process.argv[1]]},
+      )", __dir__]).strip
+  end
+  node_require('react-native/scripts/react_native_pods.rb')
+  node_require('react-native-permissions/scripts/setup.rb')
+  
+  setup_permissions([
+    'AppTrackingTransparency',
+    # 'Bluetooth',
+    'Calendars',
+    # 'CalendarsWriteOnly',
+    'Camera',
+    'Contacts',
+    'FaceID',
+    'LocationAccuracy',
+    'LocationAlways',
+    'LocationWhenInUse',
+    # 'MediaLibrary',
+    'Microphone',
+    'Motion',
+    'Notifications',
+    # 'PhotoLibrary',
+    # 'PhotoLibraryAddOnly',
+    'Reminders',
+    # 'Siri',
+    # 'SpeechRecognition',
+    # 'StoreKit',
+  ])
+
+  use_frameworks! :linkage => :static
+  $RNFirebaseAsStaticFramework = true
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  post_install do |installer|
+    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+      # :ccache_enabled => true
+    )
+
+    installer.pods_project.targets.each do |target|
+      if target.name == 'BoringSSL-GRPC'
+        target.source_build_phase.files.each do |file|
+          if file.settings && file.settings['COMPILER_FLAGS']
+            flags = file.settings['COMPILER_FLAGS'].split
+            flags.reject! { |flag| flag == '-GCC_WARN_INHIBIT_ALL_WARNINGS' }
+            file.settings['COMPILER_FLAGS'] = flags.join(' ')
+          end
+        end
+      end
+    end
+
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false
+    )
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
+        config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', '_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION']
+      end
+    end
+
+       # This is necessary for Xcode 14, because it signs resource bundles by default
+    # when building for devices.
+    installer.target_installation_results.pod_target_installation_results
+      .each do |pod_name, target_installation_result|
+      target_installation_result.resource_bundle_targets.each do |resource_bundle_target|
+        resource_bundle_target.build_configurations.each do |config|
+          config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+        end
+      end
+    end
+
+    installer.generated_projects.each do |project|
+      project.targets.each do |target|
+          target.build_configurations.each do |config|
+              config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+           end
+      end
+    end
+
+    # If you have xcode 12 and M1 mac this will be applied
+    if installer.respond_to?(:__apply_Xcode_12_5_M1_post_install_workaround)
+      installer.__apply_Xcode_12_5_M1_post_install_workaround
+    end
+
+  end
+end

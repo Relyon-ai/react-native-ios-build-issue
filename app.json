@@ -1,0 +1,7 @@
+{
+  "name": "testApplicationReproduce",
+  "displayName": "testApplicationReproduce",
+  "plugins": [
+    "expo-asset"
+  ]
+}
