@@ -1,34 +1,3 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json",
-  "compilerOptions": {
-    "types": [
-      "node",
-      "jest"
-    ],
-    "skipLibCheck": true, // Don't check types for imported libraries
-    "baseUrl": ".",
-    "paths": {
-      "*": [
-        "*",
-        "*.ios",
-        "*.android"
-      ]
-    },
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/@types/*"
-    ],
-    "strict": false,
-    "noImplicitAny": false,
-    "allowJs": true,
-    "checkJs": false,
-    "jsx": "react-jsx"
-  },
-  "include": [
-    "**/*",
-    "*.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "extends": "@react-native/typescript-config/tsconfig.json"
 }
