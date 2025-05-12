@@ -46,6 +46,8 @@ pod cache clean --all && pod deintegrate && pod install --repo-update
 ```
 For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
 
+In XCode do Product -> Clean Build Folder
+
 ```sh
 # Using npm
 npm run ios
